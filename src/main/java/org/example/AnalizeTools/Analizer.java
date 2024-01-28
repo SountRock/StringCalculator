@@ -14,8 +14,6 @@ public class Analizer {
         PrepareExpression prepare = new PrepareExpression(expession, operations);
         List<String> exArr = prepare.decompose();
 
-        System.out.println("In :" + exArr);
-
         for (int i = 0; i < operations.size(); i++){
             boolean search = true;
             while(search){
@@ -24,8 +22,6 @@ public class Analizer {
                     if(exArr.get(j).equals("(")){
                         String compare = "";
                         exArr.remove(j);
-
-                        System.out.println("Now :" + exArr);
 
                         byte Continue = 0;
                         byte closeCount = 1;
@@ -38,11 +34,6 @@ public class Analizer {
                         }
 
                         exArr.remove(j);
-
-                        System.out.println("Before :" + exArr);
-
-                        System.out.println("in reqursia");
-
                         exArr.add(j, analize(compare).toString());
                     } else if(operations.get(i).isThisOperation(exArr.get(j))){
                         search = true;
@@ -57,7 +48,6 @@ public class Analizer {
                             exArr.remove(left);
                         }
 
-                        System.out.println("operation " + operation);
                         String temp = operations.get(i).operation(operation.toString());
                         exArr.add(left, temp);
                         j--;
