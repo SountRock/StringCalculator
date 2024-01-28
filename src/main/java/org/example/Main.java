@@ -27,6 +27,11 @@ public class Main {
         Analizer ib = new Analizer(operations);
         ////////////////////////////////////////////////////////////////////////////
 
+        String expr = "5.2+3*1.5/0.5";
+        long start = System.currentTimeMillis();
+        Double.parseDouble(ib.analize(expr).get(0));
+        long over = System.currentTimeMillis();
+        System.out.println(over-start);
 
     }
 }

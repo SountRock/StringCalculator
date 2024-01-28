@@ -105,6 +105,7 @@ public class AnalizerTest {
     @Test
     void A_HardOperation2() {
         prepare();
+
         String expr = "(2+5*(1+3))+2";
         double result = Double.parseDouble(ib.analize(expr).get(0));
         double test = (2+5*(1+3))+2;
