@@ -1,7 +1,6 @@
 package org.example.AnalizeTools;
 
 import org.example.Models.ModelOperation;
-
 import java.util.*;
 
 public class Analizer {
@@ -13,20 +12,39 @@ public class Analizer {
 
     public List<String> analize(String expession){
         PrepareExpression prepare = new PrepareExpression(expession, operations);
-
         List<String> exArr = prepare.decompose();
 
-        System.out.println(exArr);
+        System.out.println("In :" + exArr);
 
         for (int i = 0; i < operations.size(); i++){
-
-            System.out.println(exArr);
-
             boolean search = true;
             while(search){
                 search = false;
                 for (int j = 0; j < exArr.size(); j++){
-                    if(operations.get(i).isThisOperation(exArr.get(j))){
+                    if(exArr.get(j).equals("(")){
+                        String compare = "";
+                        exArr.remove(j);
+
+                        System.out.println("Now :" + exArr);
+
+                        byte Continue = 0;
+                        byte closeCount = 1;
+                        while(Continue < closeCount){
+                            if(exArr.get(j).equals("("))
+                                closeCount++;
+
+                            compare += exArr.remove(j);
+                            Continue += exArr.get(j).equals(")") ? 1 : 0;
+                        }
+
+                        exArr.remove(j);
+
+                        System.out.println("Before :" + exArr);
+
+                        System.out.println("in reqursia");
+
+                        exArr.add(j, analize(compare).toString());
+                    } else if(operations.get(i).isThisOperation(exArr.get(j))){
                         search = true;
                         StringBuilder operation = new StringBuilder();
                         int left = j - 1;
@@ -35,16 +53,12 @@ public class Analizer {
                         int right = j + 1;
                         operation.append(exArr.get(right));
 
-                        System.out.println(left + " " + right);
-
                         for (int k = left; k < left + 3; k++) {
                             exArr.remove(left);
                         }
 
+                        System.out.println("operation " + operation);
                         String temp = operations.get(i).operation(operation.toString());
-
-                        System.out.println("operation : " + operation + " = " + temp);
-
                         exArr.add(left, temp);
                         j--;
                     }
