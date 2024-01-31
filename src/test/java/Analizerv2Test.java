@@ -1,4 +1,5 @@
 import org.example.AnalizeTools.Analizerv2;
+import org.example.AnalizeTools.PrepareExpression;
 import org.example.Models.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,8 +26,10 @@ public class Analizerv2Test {
     void A_simpleOperation1() {
         prepare();
 
-        String expr = "5.2+3*1.5/0.5";
-        double result = Double.parseDouble(ib.analize(expr).get(0));
+        PrepareExpression prepare = new PrepareExpression("5.2+3*1.5/0.5");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
         double test = 5.2 + 3.0 * 1.5 / 0.5;
 
         Assertions.assertEquals(result, test);
@@ -36,8 +39,10 @@ public class Analizerv2Test {
     void A_simpleOperation2() {
         prepare();
 
-        String expr = "10.5/5.0/5.0/5.0";
-        double result = Double.parseDouble(ib.analize(expr).get(0));
+        PrepareExpression prepare = new PrepareExpression("10.5/5.0/5.0/5.0");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
         double test = 10.5 / 5.0 / 5.0 / 5.0;
 
         Assertions.assertEquals(result, test);
@@ -47,9 +52,11 @@ public class Analizerv2Test {
     void A_simpleOperation3() {
         prepare();
 
-        String expr = "10.5*2*2*5";
-        double result = Double.parseDouble(ib.analize(expr).get(0));
-        double test = 10.5 * 2.0 * 2.0 * 5.0;
+        PrepareExpression prepare = new PrepareExpression("5.5/2.1*23.6");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
+        double test = 5.5 / 2.1 * 23.6;
 
         Assertions.assertEquals(result, test);
     }
@@ -58,9 +65,11 @@ public class Analizerv2Test {
     void A_simpleOperation4() {
         prepare();
 
-        String expr = "10.5+2+2+5";
-        double result = Double.parseDouble(ib.analize(expr).get(0));
-        double test = 10.5 + 2.0 + 2.0 + 5.0;
+        PrepareExpression prepare = new PrepareExpression("10.5*2.1+2+5");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
+        double test = 10.5 * 2.1 + 2.0 + 5.0;
 
         Assertions.assertEquals(result, test);
     }
@@ -69,8 +78,10 @@ public class Analizerv2Test {
     void A_simpleOperation5() {
         prepare();
 
-        String expr = "10.5+2+2+5";
-        double result = Double.parseDouble(ib.analize(expr).get(0));
+        PrepareExpression prepare = new PrepareExpression("10.5+2+2+5");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
         double test = 10.5 + 2.0 + 2.0 + 5.0;
 
         Assertions.assertEquals(result, test);
@@ -80,13 +91,17 @@ public class Analizerv2Test {
     void A_HardOperation() {
         prepare();
 
-        String expr = "(2+5)*7";
-        double result = Double.parseDouble(ib.analize(expr).get(0));
+        PrepareExpression prepare = new PrepareExpression("(2+5)*7");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
         double test = (2+5)*7;
         Assertions.assertEquals(result, test);
 
-        expr = "7*(2+5)";
-        result = Double.parseDouble(ib.analize(expr).get(0));
+        prepare = new PrepareExpression("7*(2+5)");
+        exArr = prepare.decompose();
+
+        result = Double.parseDouble(ib.analize(exArr).get(0));
         Assertions.assertEquals(result, test);
     }
 
@@ -94,8 +109,10 @@ public class Analizerv2Test {
     void A_HardOperation1() {
         prepare();
 
-        String expr = "(2+5)*(5+2)*(5/2)";
-        double result = Double.parseDouble(ib.analize(expr).get(0));
+        PrepareExpression prepare = new PrepareExpression("(2+5)*(5+2)*(5/2)");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
         double test = (2.0+5.0)*(5.0+2.0)*(5.0/2.0);
         Assertions.assertEquals(result, test);
     }
@@ -104,8 +121,10 @@ public class Analizerv2Test {
     void A_HardOperation2() {
         prepare();
 
-        String expr = "(2+5*(1+3))+2";
-        double result = Double.parseDouble(ib.analize(expr).get(0));
+        PrepareExpression prepare = new PrepareExpression("(2+5*(1+3))+2");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
         double test = (2+5*(1+3))+2;
         Assertions.assertEquals(result, test);
     }
@@ -113,8 +132,11 @@ public class Analizerv2Test {
     @Test
     void A_HardOperation3() {
         prepare();
-        String expr = "((5/2)+(1*(1+1)))+2";
-        double result = Double.parseDouble(ib.analize(expr).get(0));
+
+        PrepareExpression prepare = new PrepareExpression("((5/2)+(1*(1+1)))+2");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
         double test = ((5.0/2.0)+(1.0*(1.0+1.0)))+2.0;
         Assertions.assertEquals(result, test);
     }

@@ -1,7 +1,5 @@
 package org.example.AnalizeTools;
 
-import org.example.Models.ModelOperation;
-
 import java.util.ArrayList;
 import java.util.List;
 

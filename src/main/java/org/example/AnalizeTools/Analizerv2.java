@@ -11,14 +11,11 @@ public class Analizerv2 {
         this.operations = operations;
     }
 
-    public List<String> analize(String expession){
-        PrepareExpression prepare = new PrepareExpression(expession);
-        List<String> exArr = prepare.decompose();
-
+    public List<String> analize(List<String> exArr){
         for (int i = 0; i < operations.size(); i++){
             for (int j = 0; j < exArr.size(); j++){
                 if(exArr.get(j).equals("(")){
-                    String compare = "";
+                    List<String> temp = new ArrayList<>();
                     exArr.remove(j);
 
                     byte Continue = 0;
@@ -27,12 +24,12 @@ public class Analizerv2 {
                         if(exArr.get(j).equals("("))
                             closeCount++;
 
-                        compare += exArr.remove(j);
+                        temp.add(exArr.remove(j));
                         Continue += exArr.get(j).equals(")") ? 1 : 0;
                     }
 
                     exArr.remove(j);
-                    exArr.add(j, analize(compare).toString());
+                    exArr.add(j, analize(temp).toString());
                 } else if(operations.get(i).isThisOperation(exArr.get(j))){
                     operations.get(i).operation(exArr, j);
                     j--;
