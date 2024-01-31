@@ -8,11 +8,8 @@ import java.util.List;
 public class PrepareExpression {
     private String expression;
 
-    private List<ModelOperation> operations;
-
-    public PrepareExpression(String expression, List<ModelOperation> operations) {
+    public PrepareExpression(String expression) {
         this.expression = expression;
-        this.operations = operations;
     }
 
     public List<String> decompose(){

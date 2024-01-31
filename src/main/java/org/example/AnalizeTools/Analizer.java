@@ -11,22 +11,19 @@ public class Analizer {
     }
 
     public List<String> analize(String expession){
-        PrepareExpression prepare = new PrepareExpression(expession, operations);
+        PrepareExpression prepare = new PrepareExpression(expession);
         List<String> exArr = prepare.decompose();
 
         for (int i = 0; i < operations.size(); i++){
-            boolean search = true;
-            while(search){
-                search = false;
-                for (int j = 0; j < exArr.size(); j++){
-                    if(exArr.get(j).equals("(")){
-                        String compare = "";
-                        exArr.remove(j);
+            for (int j = 0; j < exArr.size(); j++){
+                if(exArr.get(j).equals("(")){
+                    String compare = "";
+                    exArr.remove(j);
 
-                        byte Continue = 0;
-                        byte closeCount = 1;
-                        while(Continue < closeCount){
-                            if(exArr.get(j).equals("("))
+                    byte Continue = 0;
+                    byte closeCount = 1;
+                    while(Continue < closeCount){
+                        if(exArr.get(j).equals("("))
                                 closeCount++;
 
                             compare += exArr.remove(j);
@@ -35,23 +32,21 @@ public class Analizer {
 
                         exArr.remove(j);
                         exArr.add(j, analize(compare).toString());
-                    } else if(operations.get(i).isThisOperation(exArr.get(j))){
-                        search = true;
-                        StringBuilder operation = new StringBuilder();
-                        int left = j - 1;
-                        operation.append(exArr.get(left));
-                        operation.append(exArr.get(j));
-                        int right = j + 1;
-                        operation.append(exArr.get(right));
+                } else if(operations.get(i).isThisOperation(exArr.get(j))){
+                    String operation = "";
+                    int left = j - 1;
+                    operation += exArr.get(left);
+                    operation += exArr.get(j);
+                    int right = j + 1;
+                    operation += exArr.get(right);
 
-                        for (int k = left; k < left + 3; k++) {
-                            exArr.remove(left);
-                        }
-
-                        String temp = operations.get(i).operation(operation.toString());
-                        exArr.add(left, temp);
-                        j--;
+                    for (int k = left; k < right + 1; k++) {
+                        exArr.remove(left);
                     }
+
+                    String temp = operations.get(i).operation(operation);
+                    exArr.add(left, temp);
+                    j--;
                 }
             }
         }
