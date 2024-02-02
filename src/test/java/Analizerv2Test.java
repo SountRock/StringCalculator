@@ -1,6 +1,7 @@
 import org.example.AnalizeTools.Analizerv2;
 import org.example.AnalizeTools.PrepareExpression;
 import org.example.Models.*;
+import org.example.Models.MathMethod.GammaFunc;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,8 +13,12 @@ public class Analizerv2Test {
     private Analizerv2 ib;
     private List<Operation> operations;
 
+    private GammaFunc gamma = new GammaFunc();
+
     private void prepare(){
         operations = new ArrayList<>();
+        operations.add(new ModelFactorial());
+        operations.add(new ModelSquare());
         operations.add(new ModelDivitev2());
         operations.add(new ModelMultiplyv2());
         operations.add(new ModelPlusv2());
@@ -88,6 +93,32 @@ public class Analizerv2Test {
     }
 
     @Test
+    void A_simpleOperation6() {
+        prepare();
+
+        PrepareExpression prepare = new PrepareExpression("5.5!+2");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
+        double test = gamma.gamma(5.5 + 1) + 2.0;
+
+        Assertions.assertEquals(result, test, 0.00001);
+    }
+
+    @Test
+    void A_simpleOperation7() {
+        prepare();
+
+        PrepareExpression prepare = new PrepareExpression("#15.4+0.2!");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
+        double test = Math.sqrt(15.4) + gamma.gamma(0.2 + 1.0);
+
+        Assertions.assertEquals(result, test);
+    }
+
+    @Test
     void A_HardOperation() {
         prepare();
 
@@ -140,5 +171,19 @@ public class Analizerv2Test {
         double test = ((5.0/2.0)+(1.0*(1.0+1.0)))+2.0;
         Assertions.assertEquals(result, test);
     }
+
+    @Test
+    void A_HardOperation4() {
+        prepare();
+
+        PrepareExpression prepare = new PrepareExpression("((5!+2)+(#14*2))+2");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
+        double test = ((GammaFunc.gamma(5.0 + 1.0) + 2.0) + (Math.sqrt(14.0) * 2.0)) + 2.0;
+        Assertions.assertEquals(result, test);
+    }
+
+
 }
 
