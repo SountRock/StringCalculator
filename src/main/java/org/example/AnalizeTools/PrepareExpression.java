@@ -13,21 +13,29 @@ public class PrepareExpression {
     public List<String> decompose(){
         List<String> result = new ArrayList<>();
 
-        char[] temp = expression.replaceAll("sqrt", "#").
-                //replaceAll("", "").
-                toCharArray();
+        char[] temp = expression.toLowerCase().toCharArray();
 
-        String compare = "";
         for (int i = 0; i < temp.length; i++) {
-            if(!isOperand(temp[i])){
-                compare += temp[i];
-            } else {
+            if(isNum(temp[i])){
+                String compare = "";
+                int j = i;
+                for (; j < temp.length && isNum(temp[j]); j++) {
+                    compare += temp[j];
+                }
                 result.add(compare);
+                i = j - 1;
+            } else if(isChar(temp[i])){
+                String compare = "";
+                int j = i;
+                for (; j < temp.length && isChar(temp[j]); j++) {
+                    compare += temp[j];
+                }
+                result.add(compare);
+                i = j - 1;
+            } else {
                 result.add(temp[i]+"");
-                compare = "";
             }
         }
-        result.add(compare);
 
         CleanerList cl = new CleanerList<>(result);
         result = cl.clearList("");
@@ -35,15 +43,11 @@ public class PrepareExpression {
         return result;
     }
 
-    public boolean isOperand(char value){
-        return (value > 32 && value < 48 && value != 46);
-    }
-
     public boolean isChar(char value){
-        return (value > 64 && value < 91) || (value > 96 && value < 123);
+        return (value > 96 && value < 123);
     }
 
     public boolean isNum(char value){
-        return (value > 47 && value < 58);
+        return (value > 47 && value < 58) || value == 46;
     }
 }

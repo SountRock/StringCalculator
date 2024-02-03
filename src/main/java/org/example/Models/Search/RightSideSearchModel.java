@@ -1,14 +1,16 @@
 package org.example.Models.Search;
 
+import org.example.AnalizeTools.Analizerv2;
 import org.example.Models.Operation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RigthSideSearchModel implements Operation {
+public class RightSideSearchModel implements Operation {
     String operationIndex;
+    Analizerv2 anaizer;
 
-    public RigthSideSearchModel(String operationIndex) {
+    public RightSideSearchModel(String operationIndex) {
         this.operationIndex = operationIndex;
     }
 
@@ -21,6 +23,11 @@ public class RigthSideSearchModel implements Operation {
     }
 
     public String searchArgumenent(List<String> expr, int positionIndex) {
-        return expr.get(positionIndex + 1);
+        if(!expr.get(positionIndex + 1).equals("(")){
+            return expr.get(positionIndex + 1);
+        }
+
+        List<String> temp = anaizer.compare(expr, positionIndex + 1, "(", ")");
+        return anaizer.analize(temp).get(0);
     }
 }

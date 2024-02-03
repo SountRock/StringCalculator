@@ -109,7 +109,7 @@ public class Analizerv2Test {
     void A_simpleOperation7() {
         prepare();
 
-        PrepareExpression prepare = new PrepareExpression("#15.4+0.2!");
+        PrepareExpression prepare = new PrepareExpression("sqrt15.4+0.2!");
         List<String> exArr = prepare.decompose();
 
         double result = Double.parseDouble(ib.analize(exArr).get(0));
@@ -176,7 +176,7 @@ public class Analizerv2Test {
     void A_HardOperation4() {
         prepare();
 
-        PrepareExpression prepare = new PrepareExpression("((5!+2)+(#14*2))+2");
+        PrepareExpression prepare = new PrepareExpression("((5!+2)+(sqrt14*2))+2");
         List<String> exArr = prepare.decompose();
 
         double result = Double.parseDouble(ib.analize(exArr).get(0));
@@ -184,6 +184,40 @@ public class Analizerv2Test {
         Assertions.assertEquals(result, test);
     }
 
+    @Test
+    void A_HardOperation5() {
+        prepare();
 
+        PrepareExpression prepare = new PrepareExpression("sqrt((12+2)*1)");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
+        double test = Math.sqrt((12+2)*1);
+        Assertions.assertEquals(result, test);
+    }
+
+    @Test
+    void A_HardOperation6() {
+        prepare();
+
+        PrepareExpression prepare = new PrepareExpression("((12+2)*1)!");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
+        double test =GammaFunc.gamma(((12+2)*1) + 1.0);
+        Assertions.assertEquals(result, test);
+    }
+
+    @Test
+    void A_HardOperation7() {
+        prepare();
+
+        PrepareExpression prepare = new PrepareExpression("((5*3)!+sqrt(22*12))!");
+        List<String> exArr = prepare.decompose();
+
+        double result = Double.parseDouble(ib.analize(exArr).get(0));
+        double test =  GammaFunc.gamma((GammaFunc.gamma((5*3) + 1.0) + Math.sqrt(22*12)) + 1.0);
+        Assertions.assertEquals(result, test);
+    }
 }
 

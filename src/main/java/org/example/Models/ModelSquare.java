@@ -1,13 +1,12 @@
 package org.example.Models;
 
-import org.example.Models.Search.LeftSideSearchModel;
-import org.example.Models.Search.RigthSideSearchModel;
+import org.example.Models.Search.RightSideSearchModel;
 
 import java.util.List;
 
-public class ModelSquare extends RigthSideSearchModel {
+public class ModelSquare extends RightSideSearchModel {
     public ModelSquare() {
-        super("#");
+        super("sqrt");
     }
 
     @Override
