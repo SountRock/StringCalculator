@@ -4,6 +4,9 @@ import org.example.Models.Search.TwoSidesSearchModel;
 
 import java.util.List;
 
+/**
+ * Модель вычитания
+ */
 public class ModelMinusv2 extends TwoSidesSearchModel {
 
     public ModelMinusv2() {

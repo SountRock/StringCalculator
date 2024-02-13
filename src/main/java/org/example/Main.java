@@ -21,8 +21,7 @@ public class Main {
 
         PrepareExpression pe = new PrepareExpression("11 * (sqrt(24.6 + 0.4) + 12.0001!)");
         List<String> prepare = pe.decompose();
-        System.out.println(prepare);
-        System.out.println(analizer.analize(prepare));
-        System.out.println(11 * (Math.sqrt(24.6 + 0.4) + GammaFunc.gamma(12.0001 + 1)));
+        System.out.println("11 * (sqrt(24.6 + 0.4) + 12.0001!) = " + analizer.analize(prepare));
+        //System.out.println(11 * (Math.sqrt(24.6 + 0.4) + GammaFunc.gamma(12.0001 + 1)));
     }
 }

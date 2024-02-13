@@ -4,6 +4,9 @@ import org.example.Models.Search.RightSideSearchModel;
 
 import java.util.List;
 
+/**
+ * Модель вычисления квабратного корня
+ */
 public class ModelSquare extends RightSideSearchModel {
     public ModelSquare() {
         super("sqrt");

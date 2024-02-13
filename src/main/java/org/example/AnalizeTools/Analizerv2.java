@@ -4,13 +4,25 @@ import org.example.Models.Operation;
 
 import java.util.*;
 
+/**
+ * Класс анализирующий выражение на выполнение указанных операций.
+ */
 public class Analizerv2 {
     private List<Operation> operations;
 
+    /**
+     * Введите лист моделей операций типа Operation
+     * @param operations
+     */
     public Analizerv2(List<Operation> operations){
         this.operations = operations;
     }
 
+    /**
+     * Анализировать выражение
+     * @param exArr
+     * @return analize result
+     */
     public List<String> analize(List<String> exArr){
         for (int i = 0; i < operations.size(); i++){
             for (int j = 0; j < exArr.size(); j++){
@@ -27,6 +39,14 @@ public class Analizerv2 {
         return exArr;
     }
 
+    /**
+     * Собрать выражение по указаному параметру входа(символ начала) и выхода(символ выхода)
+     * @param exArr
+     * @param indexStart
+     * @param paramContinue
+     * @param paramClose
+     * @return compare expression
+     */
     public List<String> compare(List<String> exArr, int indexStart, String paramContinue, String paramClose){
         List<String> temp = new ArrayList<>();
         exArr.remove(indexStart);

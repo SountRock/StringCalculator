@@ -6,10 +6,17 @@ import org.example.Models.Operation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Политика поиска аргументов с левой стороны от индификатора
+ */
 public class LeftSideSearchModel implements Operation {
     String operationIndex;
     Analizerv2 anaizer;
 
+    /**
+     * Введите индефикатор операции
+     * @param operationIndex
+     */
     public LeftSideSearchModel(String operationIndex) {
         this.operationIndex = operationIndex;
     }
@@ -22,6 +29,12 @@ public class LeftSideSearchModel implements Operation {
         return operation.equals(operationIndex);
     }
 
+    /**
+     * Метод поиска аргументов
+     * @param expr
+     * @param positionIndex
+     * @return argument list
+     */
     public String searchArgumenent(List<String> expr, int positionIndex) {
         if(!expr.get(positionIndex - 1).equals("(")){
             return expr.get(positionIndex - 1);

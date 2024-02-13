@@ -5,6 +5,9 @@ import org.example.Models.Search.LeftSideSearchModel;
 
 import java.util.List;
 
+/**
+ * Модель факториала
+ */
 public class ModelFactorial extends LeftSideSearchModel {
     public ModelFactorial() {
         super("!");

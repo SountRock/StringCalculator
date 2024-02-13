@@ -3,6 +3,9 @@ package org.example.Models.MathMethod;
 import static java.lang.Math.exp;
 import static java.lang.Math.log;
 
+/**
+ * Класс Гамма-функции
+ */
 public class GammaFunc {
     /** Maximum allowed number of iterations. */
     private static final int ITMAX = 100;

@@ -4,6 +4,9 @@ import org.example.Models.Search.TwoSidesSearchModel;
 
 import java.util.List;
 
+/**
+ * Модель сложения
+ */
 public class ModelPlusv2 extends TwoSidesSearchModel {
 
     public ModelPlusv2() {

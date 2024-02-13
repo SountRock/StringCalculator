@@ -5,9 +5,16 @@ import org.example.Models.Operation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Политика простого поиска аргументов с двух сторон от индификатора
+ */
 public class TwoSidesSearchModel implements Operation {
     String operationIndex;
 
+    /**
+     * Введите индефикатор операции
+     * @param operationIndex
+     */
     public TwoSidesSearchModel(String operationIndex) {
         this.operationIndex = operationIndex;
     }
@@ -20,6 +27,12 @@ public class TwoSidesSearchModel implements Operation {
         return operation.equals(operationIndex);
     }
 
+    /**
+     * Метод поиска аргументов
+     * @param expr
+     * @param positionIndex
+     * @return argument list
+     */
     public List<Double> searchArgumenent(List<String> expr, int positionIndex) {
         int startPosition = positionIndex - 1;
 

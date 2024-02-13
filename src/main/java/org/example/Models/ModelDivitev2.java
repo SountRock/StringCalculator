@@ -4,6 +4,9 @@ import org.example.Models.Search.TwoSidesSearchModel;
 
 import java.util.List;
 
+/**
+ * Модель деления
+ */
 public class ModelDivitev2 extends TwoSidesSearchModel {
 
     public ModelDivitev2 () {
