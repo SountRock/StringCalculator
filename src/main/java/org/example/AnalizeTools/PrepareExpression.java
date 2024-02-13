@@ -7,7 +7,7 @@ public class PrepareExpression {
     private String expression;
 
     public PrepareExpression(String expression) {
-        this.expression = expression;
+        this.expression = expression.replaceAll(" ", "");
     }
 
     public List<String> decompose(){
@@ -36,9 +36,6 @@ public class PrepareExpression {
                 result.add(temp[i]+"");
             }
         }
-
-        CleanerList cl = new CleanerList<>(result);
-        result = cl.clearList("");
 
         return result;
     }
